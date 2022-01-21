@@ -2,7 +2,7 @@
 A simple SI unit conversion library. 
 
 # Installation
-`npm i kuolintoive-units`
+`npm i kuolintoive-unit`
 
 ### Usage
 
