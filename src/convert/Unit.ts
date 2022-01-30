@@ -1,8 +1,7 @@
 import { getConversionRatio } from '../matcher/Unit';
 import { getDimensionByUnitAlias } from '../matcher/Dimension';
-import { ComplexUnit, SimpleUnit, UnitKey, UnitOperand, UnitRate } from '../types/Unit';
+import { ComplexUnit, SimpleUnit, UnitKey, SimpleRate, ComplexRate } from '../types/Unit';
 import { Dimension } from '../types/Dimension';
-import { PrefixAlias } from '../types/Prefix';
 import { getPrefixConversion } from './Prefix';
 
 /** Convert between two simple units. 
@@ -37,7 +36,7 @@ TInput extends number>(startUnit: TOperand, endUnit: TOperand, value: TInput): n
  * 4. Apply an SI prefix to @let operand (i.e, one -> deci)
  */
 export const convertComplexUnits = <
-TOperand extends ComplexUnit<{ key: UnitKey, prefix: PrefixAlias }>,
+TOperand extends ComplexUnit,
 TInput extends number>(startUnit: TOperand, endUnit: TOperand, value: TInput): number => {
 	let operand = <number>value;
 	operand = getPrefixConversion(startUnit.prefix, 'one', operand);
@@ -61,7 +60,7 @@ TInput extends number>(startUnit: TOperand, endUnit: TOperand, value: TInput): n
  * 8. Return @let operand.
  */
 export const convertSimpleUnitRate = <
-TRate extends UnitRate<{ baseUnit: UnitKey, rateUnit: UnitKey}>, 
+TRate extends SimpleRate, 
 TInput extends number>(startRate: TRate, endRate: TRate, value: TInput): number => {
 	let operand = <number>value;
 	const startDimension: Dimension = getDimensionByUnitAlias(startRate.baseUnit);
@@ -82,8 +81,3 @@ const areCommonUnits = <TDimension extends Dimension>(startDimension: TDimension
 	return startDimension.key === endDimension.key;
 }; 
 
-const rate = convertSimpleUnitRate(
-	{ baseUnit: 'ft', rateUnit: 's' },
-	{ baseUnit: 'yd', rateUnit: 'm' },
-	10
-);

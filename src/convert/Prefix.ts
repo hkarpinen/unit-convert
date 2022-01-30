@@ -14,6 +14,7 @@ import { PrefixAlias } from '../types/Prefix';
  * 6. Perform the division/multiply operation.
  * 7. Return the prefix. 
  */
+
 export const getPrefixConversion = <
 TPrefix extends PrefixAlias, 
 TInput extends number>(startAlias: TPrefix, endAlias: TPrefix, value: TInput): number => {
