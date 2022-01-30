@@ -1,5 +1,11 @@
 import { UnitKey, Unit } from '../types/Unit';
-import { Dimension } from '../types/Dimension';
+import { Dimension, DimensionKey } from '../types/Dimension';
+import { getDimension } from './Dimension';
+
+// Get singular names for units in a dimension.
+export const getSingularUnitNames = <T extends DimensionKey>(dim: T) => {
+	return getDimension(dim).units.map(unit => unit.singular);
+};
 
 /** Get a unit ratio by @type UnitKey
  * @param  {TKey} alias

@@ -13,3 +13,8 @@ export const getPrefix = <T extends PrefixAlias>(alias: T): Prefix => {
 	if(matches.length === 0) throw new Error(`NO_SUCH_PREFIX:${alias}`);
 	return matches[0];
 };
+
+// Get all short prefix names.
+export const getPrefixShortNames = () => {
+	return Prefixes.map(prefix => prefix.short);
+};
