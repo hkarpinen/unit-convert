@@ -14,11 +14,22 @@ export interface Unit {
 }
 
 // @type UnitOperand: Used during simple and complex unit/rate conversions. 
-export type UnitOperand = SimpleUnit | ComplexUnit<{ key: UnitKey, prefix: PrefixAlias }>;
+export type UnitOperand = SimpleUnit | ComplexUnit;
 
 // @types SimpleUnit, ComplexUnit, UnitKey, UnitRatio, UnitRate
 export type SimpleUnit = UnitKey;
-export type ComplexUnit<T extends { key: UnitKey, prefix: PrefixAlias}> = T;
+export interface ComplexUnit {
+    key: UnitKey,
+    prefix: PrefixAlias
+}
+
 export type UnitKey = string;
-export type UnitRatio = number;                                                   
-export type UnitRate<T extends { baseUnit: UnitKey, rateUnit: UnitKey }> = T;
+export type UnitRatio = number;     
+export interface SimpleRate {
+    baseUnit: UnitKey,
+    rateUnit: UnitKey
+}
+export interface ComplexRate {
+    baseUnit: ComplexUnit,
+    rateUnit: ComplexUnit
+}
